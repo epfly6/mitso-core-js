@@ -124,8 +124,13 @@ function angleBetweenClockHands(date) {
  *    getDay(365, false) => "December, 31"
  *    getDay(366, true) => "December, 31"
  */
-function getDay(/* day, isLeap */) {
-  throw new Error('Not implemented');
+function getDay(day, isLeap) {
+  const date = isLeap ? new Date(2016, 0, day) : new Date(2017, 0, day);
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+  const month = monthNames[date.getMonth()];
+  const dayOfMonth = date.getDate();
+  return `${month}, ${dayOfMonth}`;
 }
 
 module.exports = {
