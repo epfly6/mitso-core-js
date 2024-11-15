@@ -305,8 +305,21 @@ function reverseString(str) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  if (typeof num !== 'number' || !Number.isInteger(num)) {
+    throw new Error('Input is not a valid integer');
+  }
+
+  let result = 0;
+  let n = Math.abs(num);
+
+  while (n > 0) {
+    const digit = n % 10;
+    result = result * 10 + digit;
+    n = Math.floor(n / 10);
+  }
+
+  return num < 0 ? -result : result;
 }
 
 /**
