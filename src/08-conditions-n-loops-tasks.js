@@ -499,8 +499,32 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  if (!Array.isArray(pathes)) {
+    throw new Error('Input is not an array');
+  }
+
+  if (pathes.length === 0) {
+    return '';
+  }
+
+  // Split each path into an array of directories
+  const splitPaths = pathes.map((path) => path.split('/'));
+
+  // Find the common prefix of all path arrays
+  let commonPath = splitPaths[0];
+
+  for (let i = 1; i < splitPaths.length; i += 1) {
+    let j = 0;
+    while (j < commonPath.length && j < splitPaths[i].length
+      && commonPath[j] === splitPaths[i][j]) {
+      j += 1;
+    }
+    commonPath = commonPath.slice(0, j);
+  }
+
+  // Join the common path elements with '/' and add a trailing '/' if necessary
+  return commonPath.length > 0 ? `${commonPath.join('/')}/` : '';
 }
 
 /**
