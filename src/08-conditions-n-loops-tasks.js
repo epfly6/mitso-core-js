@@ -467,8 +467,24 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  if (typeof num !== 'number' || !Number.isInteger(num)) {
+    throw new Error('Input is not a valid integer');
+  }
+
+  if (n < 2 || n > 10) {
+    throw new Error('Input radux is out of range');
+  }
+
+  const result = [];
+  let nnum = num;
+
+  while (nnum > 0) {
+    result.unshift(nnum % n);
+    nnum = Math.floor(nnum / n);
+  }
+
+  return result.join('');
 }
 
 /**
