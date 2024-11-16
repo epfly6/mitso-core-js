@@ -580,7 +580,7 @@ function getMatrixProduct(m1, m2) {
  * Returns the evaluation of the specified tic-tac-toe position.
  * See the details: https://en.wikipedia.org/wiki/Tic-tac-toe
  *
- * Position is provides as 3x3 array with the following values: 'X','0', undefined
+ * Position is provided as 3x3 array with the following values: 'X','0', undefined
  * Function should return who is winner in the current position according to the game rules.
  * The result can be: 'X','0',undefined
  *
@@ -606,8 +606,39 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if (!Array.isArray(position)) {
+    throw new Error('Input is not an array');
+  }
+
+  const rows = position.length;
+  const columns = position[0] ? position[0].length : 0;
+
+  for (let i = 0; i < rows; i += 1) {
+    const [a, b, c] = position[i];
+    if (a === b && b === c && a !== undefined) {
+      return a;
+    }
+  }
+
+  for (let i = 0; i < columns; i += 1) {
+    const [a, b, c] = [position[0][i], position[1][i], position[2][i]];
+    if (a === b && b === c && a !== undefined) {
+      return a;
+    }
+  }
+
+  const [a, b, c] = [position[0][0], position[1][1], position[2][2]];
+  if (a === b && b === c && a !== undefined) {
+    return a;
+  }
+
+  const [x, y, z] = [position[0][2], position[1][1], position[2][0]];
+  if (x === y && y === z && x !== undefined) {
+    return x;
+  }
+
+  return undefined;
 }
 
 module.exports = {
