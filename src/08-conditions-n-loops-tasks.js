@@ -382,8 +382,23 @@ function isCreditCardNumber(cnn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(n) {
+  if (typeof n !== 'number' || n < 0 || !Number.isInteger(n)) {
+    throw new Error('Input is not a valid non-negative integer');
+  }
+
+  let sum = n;
+
+  while (sum > 9) {
+    let currentSum = 0;
+    while (sum > 0) {
+      currentSum += sum % 10;
+      sum = Math.floor(sum / 10);
+    }
+    sum = currentSum;
+  }
+
+  return sum;
 }
 
 /**
