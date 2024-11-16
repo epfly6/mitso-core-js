@@ -545,8 +545,35 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  if (!Array.isArray(m1) || !Array.isArray(m2)) {
+    throw new Error('Input is not an array');
+  }
+
+  if (m1.length === 0 || m2.length === 0) {
+    return [];
+  }
+
+  const rowsM1 = m1.length;
+  const columnsM1 = m1[0].length;
+  const rowsM2 = m2.length;
+  const columnsM2 = m2[0].length;
+
+  if (columnsM1 !== rowsM2) {
+    throw new Error('Matrixes can not be multiplied');
+  }
+
+  const result = new Array(rowsM1).fill(0).map(() => new Array(columnsM2).fill(0));
+
+  for (let i = 0; i < rowsM1; i += 1) {
+    for (let j = 0; j < columnsM2; j += 1) {
+      for (let k = 0; k < columnsM1; k += 1) {
+        result[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
+
+  return result;
 }
 
 /**
