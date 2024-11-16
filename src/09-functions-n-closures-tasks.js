@@ -87,8 +87,16 @@ function getPolynom(...coefficients) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  let cache;
+  let hasCache = false;
+  return function (...args) {
+    if (!hasCache) {
+      cache = func(...args);
+      hasCache = true;
+    }
+    return cache;
+  };
 }
 
 /**
